@@ -1,0 +1,9 @@
+#navbar{
+    display: flex;
+    justify-content: space-between;
+}
+#pages{
+    display: flex;
+    justify-content: flex-end;
+    padding: 20px;
+}

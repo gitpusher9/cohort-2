@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Dom</title>
+
+</head>
+<script>
+    let timeout;
+    function debouncepopulatediv(){
+
+        clearTimeout(timeout);
+
+        timeout = setTimeout(function() {
+            populateDiv()
+        }, 1000);
+    }
+    
+    async function populateDiv(){
+        const a = document.getElementById("firstnumber").value
+        const b = document.getElementById("secondnumber").value
+        //const element = document.getElementById("finalsum")
+        const response =  await fetch("http://localhost:3000/add?a=" + a + "&b=" + b)
+        const ans = await response.text()
+        document.getElementById("finalsum").innerHTML = ans;
+
+    }
+        //element.innerHTML =  "sum is" + " " + (parseFloat(a) + parseFloat(b))
+
+        async function si(){
+            const p =document.getElementById("principal").value
+            const r =document.getElementById("rate").value
+            const t= document.getElementById("time").value
+
+            const ans = await fetch("http://localhost:3000/interest?p=" + p + "&r=" + r + "&t="+t)
+            const data = await ans.text()
+            document.getElementById("si").innerHTML =  data
+        }
+</script>
+<body>
+        <input  oninput="debouncepopulatediv()"     type="text" placeholder ="type first number" id="firstnumber">
+        <br></br>
+        <input  oninput="debouncepopulatediv()" type="text"  placeholder="type second number" id="secondnumber">
+        <br></br>
+        <!--<button onclick="populateDiv()">Sum</button>-->
+        <br></br>
+        <div id="finalsum"></div>
+       
+        <input type="text" placeholder="Principal Amount" id="principal">
+        <input type="text" placeholder="Rate of Interest" id="rate">
+        <input type="text" placeholder="Time" id="time">
+
+        <button onclick="si()">Si and Amount</button>
+
+        <div id="si"></div>
+
+</body>
+</html>
